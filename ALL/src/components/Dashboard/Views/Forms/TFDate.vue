@@ -1,13 +1,13 @@
 <template>
   <!-- 验证输入框  × -->
   <!-- 给元素添加@blur事件数据会加载不出来 -->
-  <div>
+  <div class="font">
     <div>
       <a-form layout="inline" :form="form" @submit.prevent="paramsFilter">
         <div class="row no-gutters">
           <a-form-item>
             <div class="form-group col-md-1">
-              <label key="airCo"
+              <label key="airCo" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
                 >航司:
                 <input
                   v-decorator="[
@@ -30,7 +30,7 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-              <label key="depAirPort"
+              <label key="depAirPort" style=" font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
                 >出发机场:
                 <input
                   type="text"
@@ -42,7 +42,8 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-              <label key="arrAirPort"
+  
+              <label key="arrAirPort" style="font-family: cursive;"
                 >到达机场:
                 <input
                   type="text"
@@ -54,7 +55,7 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-              <label key="depCity"
+              <label key="depCity" style="font-family: fantasy;"
                 >出发城市:
                 <input
                   type="text"
@@ -66,7 +67,8 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-              <label key="arrCity"
+  
+              <label key="arrCity" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"
                 >到达城市:
                 <input
                   type="text"
@@ -78,7 +80,7 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-              <label key="flightNumber"
+              <label key="flightNumber" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
                 >航班号:
                 <input
                   type="text"
@@ -90,7 +92,7 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-              <label key="cabin"
+              <label key="cabin" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
                 >舱位:
                 <input
                   type="text"
@@ -102,7 +104,24 @@
               </label>
             </div>
             <div class="col-md-2">
-              <p-checkbox
+              <a-form-item>
+                <p-checkbox
+                  style="margin-top:19px"
+                  key="routeReturne"
+                  v-decorator="[
+                    'routeReturn',
+                    {
+                      valuePropName: 'checked',
+                      initialValue: false,
+                    },
+                  ]"
+                  >查往返</p-checkbox
+                >
+              </a-form-item>
+            </div>
+            <!-- <div class="col-md-2">
+              <a-form-item>
+                <p-checkbox
                 key="routeReturn"
                 placeholder="TR"
                 class="form-control"
@@ -115,36 +134,48 @@
                 ]"
                 >查往返</p-checkbox
               >
-            </div>
-            <div class="form-group col-md-2" style="margin-top:16px">
+              </a-form-item>
+              
+            </div> -->
+            <div class="form-group col-md-2" style="margin-top:7px">
               <button class="btn btn-fill btn-info">查询</button>
             </div>
           </a-form-item>
         </div>
         <!-- 下一行 -->
         <div class="row no-gutters">
-          <a-from-item>
-            <div class="col-md-3 form-group">
+          <div class="col-md-4 form-group">
+            <a-form-item>
               <label key="tripDate"
                 >乘机日期:
                 <el-date-picker
-                  format="YYYY-MM-DD"
-                  :placeholder="['开始日期', '结束日期']"
+                  type="daterange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
                   v-decorator="['tripDate', { rules: [{ type: 'array' }] }]"
+                  v-model="tripDate"
                 ></el-date-picker>
               </label>
-            </div>
-            <div class="col-md-3 form-group">
+            </a-form-item>
+          </div>
+          <div class="col-md-4 form-group">
+            <a-form-item>
               <label key="updateDate"
                 >更新日期:
                 <el-date-picker
-                  format="YYYY-MM-DD"
-                  :placeholder="['开始日期', '结束日期']"
+                  type="daterange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
                   v-decorator="['updateDate', { rules: [{ type: 'array' }] }]"
+                  v-model="updateDate"
                 ></el-date-picker>
               </label>
-            </div>
-            <div class="col-md-2">
+            </a-form-item>
+          </div>
+          <div class="col-md-1">
+            <a-form-item>
               <label key="status"
                 >上下架
                 <el-select
@@ -152,27 +183,28 @@
                   v-decorator="['status', { initialValue: '' }]"
                 >
                   <el-option value>全部</el-option>
-                  <el-option value="1">上架</el-option>
-                  <el-option value="0">下架</el-option>
+                  <el-option value="1" label="上架"></el-option>
+                  <el-option value="0" label="下架"></el-option>
                 </el-select>
               </label>
-            </div>
-            <div class="col-md-3">
-              <label key="updateStatus"
-                >更新状态:
-                <el-select
-                  placeholder="全部"
-                  v-decorator="['updateStatus', { initialValue: '' }]"
-                >
-                  <el-option value>全部</el-option>
-                  <el-option value="1">更新中</el-option>
-                  <el-option value="0">停止更新</el-option>
-                </el-select>
-              </label>
-            </div>
-            <div class="col-md-1">
+            </a-form-item>
+          </div>
+          <div class="col-md-1">
+            <a-form-item>
+              <label key="updateStatus">更新状态:</label>
+              <el-select
+                placeholder="全部"
+                v-decorator="['updateStatus', { initialValue: '' }]"
+              >
+                <el-option value>全部</el-option>
+                <el-option value="1" label="更新中"></el-option>
+                <el-option value="0" label="停止更新"></el-option>
+              </el-select>
+            </a-form-item>
+          </div>
+          <div class="col-md-2">
+            <a-form-item>
               <p-checkbox
-                style="padding-left:1px"
                 key="unDeparture"
                 v-decorator="[
                   'unDeparture',
@@ -183,46 +215,27 @@
                 ]"
                 >未起飞</p-checkbox
               >
-            </div>
-          </a-from-item>
+            </a-form-item>
+          </div>
         </div>
         <!-- 下一行 -->
         <div class="row" v-if="data.length > 0">
-          <div class="col-md-4">
-            <label></label>
-            <p-pagination
-              :total="pagination.total"
-              :pageSize="pagination.pageSize"
-              :current="pagination.current"
-              v-model="pagination.currentPage"
-              @change="
-                (page, pageSize) => {
-                  this.changePage(page, pageSize);
-                }
-              "
-              @showSizeChange="
-                (current, pageSize) => {
-                  this.changePageSize(current, pageSize);
-                }
-              "
-              :pageSizeOptions="pagination.pageSizeOptions"
-              v-show="(total) => `共${total}条`"
-            >
-            </p-pagination>
+          <div class="col-md-3 operate-bar" style="position: relative;">
+            <label class="page">每页</label>
             <el-select
               class="select-default"
-              v-model="pagination.perPage"
-              placeholder="Per page"
+              v-model="pagination.pageSize"
+              placeholder="page"
             >
-              <!-- <el-option
+              <el-option
                 class="select-default"
-                v-for="item in pagination.perPageOptions"
+                v-for="item in pagination.pageSizeOptions"
                 :key="item"
                 :label="item"
                 :value="item"
-              >
-              </el-option> -->
+              ></el-option>
             </el-select>
+            <label>条</label>
           </div>
           <div class="col-md-8">
             <div class="row">
@@ -292,126 +305,314 @@
               导出
             </button>
           </div>
-          <span v-if="tablesrc == 'privateflight'">
-            <div class="col-md-1">
-              <!-- 会跳转到表格中的修改页面 -->
-              <button class="btn btn-fill btn-info" @click="itemFix">
-                新增
-              </button>
-            </div>
-            <div class="col-md-1">
-              <a-upload
-                :fileList="fileList"
-                :remove="handleRemove"
-                :beforeUpload="beforeUpload"
-              >
-                <button class="btn btn-fill btn-info">选择文件</button>
-              </a-upload>
-            </div>
-            <div class="col-md-1">
-              <button
-                class="btn btn-fill btn-info"
-                @click="handleUpload"
-                :disabled="fileList.length === 0"
-                :loading="uploading"
-              >
-                {{ uploading ? "上传中..." : "批量导入" }}
-              </button>
-            </div>
-            <div class="col-md-2">
-              <button class="btn btn-fill btn-info" @click="downloadTemplet">
-                下载模板(新增专用)
-              </button>
-            </div>
-            <div class="col-md-5"></div>
-          </span>
+          <a-form-item>
+            <span v-if="tablesrc == 'privateflight'">
+              <div class="col-md-2">
+                <button class="btn btn-fill btn-info" @click="downloadTemplet">
+                  下载模板(新增专用)
+                </button>
+              </div>
+              <div class="col-md-1">
+                <!-- 会跳转到表格中的修改页面 -->
+                <button class="btn btn-fill btn-info" @click="itemFix">
+                  新增
+                </button>
+              </div>
+
+              <div class="col-md-1">
+                <a-form-item>
+                  <a-upload
+                    :fileList="fileList"
+                    :remove="handleRemove"
+                    :beforeUpload="beforeUpload"
+                  >
+                    <button class="btn btn-fill btn-info">选择文件</button>
+                  </a-upload>
+                </a-form-item>
+              </div>
+              <div class="col-md-1">
+                <a-form-item>
+                  <button
+                    class="btn btn-fill btn-info"
+                    @click="handleUpload"
+                    :disabled="fileList.length === 0"
+                    :loading="uploading"
+                  >
+                    {{ uploading ? "上传中..." : "批量导入" }}
+                  </button>
+                </a-form-item>
+              </div>
+              <div class="col-md-5"></div>
+            </span>
+          </a-form-item>
         </div>
         <!--  -->
       </a-form>
     </div>
-    <div>
-      <div class="col-sm-12">
-        <el-table :data="tableData">
-          <el-table-column type="index"> </el-table-column>
-          <el-table-column>
-            <p-checkbox
-              :indeterminate="
-                selectedRowKeys.length > 0 &&
-                  selectedRowKeys.length < data.length
-              "
-              @change="selectAll"
-              :checked="selectedRowKeys.length === data.length"
-            ></p-checkbox>
-          </el-table-column>
-          <el-table-column prop="airCo" label="航司"></el-table-column>
-          <el-table-column prop="tripAirPort" label="机场码"></el-table-column>
-          <el-table-column prop="tripCity" label="城市码"></el-table-column>
-          <el-table-column prop="flightNumber" label="航班号"></el-table-column>
-          <el-table-column prop="depDate" label="乘机日期"></el-table-column>
-          <el-table-column
-            prop="depTime"
-            @click="sorterFiled('deptime')"
-            style="cursor: pointer;"
-            label="出发时间"
-          ></el-table-column>
-          <el-table-column prop="arrTime" label="到达时间"></el-table-column>
-          <el-table-column label="Actions">
-            <!-- slot-scope="props"显示数据：使用插槽 -->
-            <template slot-scope="props">
-              <a
-                class="btn btn-simple btn-info btn-xs btn-icon like"
-                @click="itemFix"
-                >修改</a
-              >
-              <a
-                class="btn btn-simple btn-warning btn-xs btn-icon edit"
-                @click="itemLog"
-                >日志</a
-              >
-              <a
-                class="btn btn-simple btn-danger btn-xs btn-icon remove"
-                @confirm="itemDelete"
-                >删除</a
-              >
-            </template>
-          </el-table-column>
-        </el-table>
+
+    <!-- 复制表格 -->
+    <div class="table-box">
+      <table style="width: 2100px; font-size: 14px;">
+        <thead class="table-fixedt">
+          <tr>
+            <th width="40px" style="padding-left: 10px;">
+              <a-checkbox
+                :indeterminate="
+                  selectedRowKeys.length > 0 &&
+                    selectedRowKeys.length < data.length
+                "
+                @change="selectAll"
+                :checked="selectedRowKeys.length === data.length"
+              ></a-checkbox>
+            </th>
+            <th width="70px">ID</th>
+            <th width="50px">航司</th>
+            <th width="90px">机场码</th>
+            <th width="90px">城市码</th>
+            <th width="80px">航班号</th>
+            <th width="120px">乘机日期</th>
+            <th
+              width="150px"
+              class="item-sorter"
+              style="cursor: pointer;"
+              @click="sorterFiled('deptime')"
+            >
+              <span>出发时间</span>
+              <div class="sorter-box">
+                <a-icon
+                  class="sorter-icon"
+                  type="caret-up"
+                  :style="{
+                    color:
+                      filter.orderBy.filed == 'deptime' &&
+                      filter.orderBy.sort == 'asc'
+                        ? 'dodgerblue'
+                        : 'darkgray',
+                  }"
+                />
+                <a-icon
+                  class="sorter-icon"
+                  type="caret-down"
+                  :style="{
+                    color:
+                      filter.orderBy.filed == 'deptime' &&
+                      filter.orderBy.sort == 'desc'
+                        ? 'dodgerblue'
+                        : 'darkgray',
+                  }"
+                />
+              </div>
+            </th>
+            <th width="150px">到达时间</th>
+            <th width="200px">阶梯运价</th>
+            <th width="50px">舱位</th>
+            <th
+              width="70px"
+              class="item-sorter"
+              style="cursor: pointer;"
+              @click="sorterFiled('seatcount')"
+            >
+              <span>余位</span>
+              <div class="sorter-box">
+                <a-icon
+                  class="sorter-icon"
+                  type="caret-up"
+                  :style="{
+                    color:
+                      filter.orderBy.filed == 'seatcount' &&
+                      filter.orderBy.sort == 'asc'
+                        ? 'dodgerblue'
+                        : 'darkgray',
+                  }"
+                />
+                <a-icon
+                  class="sorter-icon"
+                  type="caret-down"
+                  :style="{
+                    color:
+                      filter.orderBy.filed == 'seatcount' &&
+                      filter.orderBy.sort == 'desc'
+                        ? 'dodgerblue'
+                        : 'darkgray',
+                  }"
+                />
+              </div>
+            </th>
+            <th
+              width="80px"
+              class="item-sorter"
+              style="cursor: pointer;"
+              @click="sorterFiled('adultprice')"
+            >
+              <span>成人价</span>
+              <div class="sorter-box">
+                <a-icon
+                  class="sorter-icon"
+                  type="caret-up"
+                  :style="{
+                    color:
+                      filter.orderBy.filed == 'adultprice' &&
+                      filter.orderBy.sort == 'asc'
+                        ? 'dodgerblue'
+                        : 'darkgray',
+                  }"
+                />
+                <a-icon
+                  class="sorter-icon"
+                  type="caret-down"
+                  :style="{
+                    color:
+                      filter.orderBy.filed == 'adultprice' &&
+                      filter.orderBy.sort == 'desc'
+                        ? 'dodgerblue'
+                        : 'darkgray',
+                  }"
+                />
+              </div>
+            </th>
+            <th width="70px">成人税</th>
+            <th width="70px">儿童价</th>
+            <th width="70px">儿童税</th>
+            <th width="50px">舱等</th>
+            <th
+              width="170px"
+              class="item-sorter"
+              style="cursor: pointer;"
+              @click="sorterFiled('updatetime')"
+            >
+              <span>数据更新时间</span>
+              <div class="sorter-box">
+                <a-icon
+                  class="sorter-icon"
+                  type="caret-up"
+                  :style="{
+                    color:
+                      filter.orderBy.filed == 'updatetime' &&
+                      filter.orderBy.sort == 'asc'
+                        ? 'dodgerblue'
+                        : 'darkgray',
+                  }"
+                />
+                <a-icon
+                  class="sorter-icon"
+                  type="caret-down"
+                  :style="{
+                    color:
+                      filter.orderBy.filed == 'updatetime' &&
+                      filter.orderBy.sort == 'desc'
+                        ? 'dodgerblue'
+                        : 'darkgray',
+                  }"
+                />
+              </div>
+            </th>
+            <th width="70px">来源</th>
+            <th class="table-fixedr" width="300px">
+              <span style="display: inline-block; width: 70px">上下架</span>
+              <span style="display: inline-block; width: 80px">更新状态</span>
+              <span style="display: inline-block; width: 70px">操作</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in data" :key="index" height="36px;">
+            <td style="padding-left: 10px;" data-id="item.id">
+              <a-checkbox
+                :checked="selectedRowKeys.indexOf(item.id) !== -1"
+                @change="checkChange(item.id)"
+              ></a-checkbox>
+            </td>
+            <td>{{ item.id }}</td>
+            <td>{{ item.airCo }}</td>
+            <td>{{ item.tripAirPort }}</td>
+            <td>{{ item.tripCity }}</td>
+            <td>{{ item.flightNumber }}</td>
+            <td>
+              {{ (item.depDate || "").slice(0, 4) }}-{{
+                (item.depDate || "").slice(4, 6)
+              }}-{{ (item.depDate || "").slice(6, 8) }}
+            </td>
+            <td>{{ item.depTime }}</td>
+            <td>{{ item.arrTime }}</td>
+            <td style="width: 200px; position: relative; min-height: 14px;">
+              <span v-html="formatContent(item, 2)"></span>
+              <a-tooltip placement="left">
+                <template slot="title">
+                  <span v-html="formatContent(item)"></span>
+                </template>
+                <a-icon
+                  type="info-circle"
+                  style="cursor: pointer; cursor: pointer; position: absolute; right: 30px; top: 8px;"
+                />
+              </a-tooltip>
+            </td>
+            <td>{{ item.updateStatus == "1" ? item.cabin : "" }}</td>
+            <td>{{ item.updateStatus == "1" ? item.seatCount : "" }}</td>
+            <td>{{ item.updateStatus == "1" ? item.adultPrice : "" }}</td>
+            <td>{{ item.updateStatus == "1" ? item.adultTax : "" }}</td>
+            <td>{{ item.updateStatus == "1" ? item.childPrice : "" }}</td>
+            <td>{{ item.updateStatus == "1" ? item.childTax : "" }}</td>
+            <td>{{ item.cabinClass == "1" ? "超经" : "经济" }}</td>
+            <td>{{ item.updateTime }}</td>
+            <td>{{ item.srcFrom }}</td>
+            <td class="table-fixedr">
+              <span style="display: inline-block; width: 70px;">
+                <p-switch
+                  :data-id="item.id"
+                  :checked="item.status == '1' ? true : false"
+                  @change="changeState"
+                />
+              </span>
+              <span style="display: inline-block; width: 80px;">
+                <p-switch
+                  :data-id="item.id"
+                  :data-jtyj="item.cabins"
+                  :checked="item.updateStatus == '1' ? true : false"
+                  @change="changeUpdateState"
+                />
+              </span>
+              <span style="display: inline-block; width: 100px; ">
+                <a
+                  href="javascript:;"
+                  :data-id="item.id"
+                  @click="itemFix"
+                  style="float:right"
+                  >修改</a
+                >
+                <a-divider type="vertical" />
+                <a
+                  href="javascript:;"
+                  :data-id="item.id"
+                  @click="itemLog"
+                  style="float:right;padding:0 8px"
+                  >日志</a
+                >
+                <a-divider type="vertical" />
+                <span>
+                  <a-popconfirm
+                    title="删除后无法恢复，是否继续？"
+                    @confirm="itemDelete(item.id)"
+                  >
+                    <span style="color: red; cursor: pointer;float:right"
+                      >删除</span
+                    >
+                  </a-popconfirm>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-sm-6">
+        <p-pagination
+          class="pull-right"
+          v-model="pagination.current"
+          :per-page="pagination.perPage"
+          :total="pagination.total"
+        >
+        </p-pagination>
       </div>
     </div>
-    <!-- 渲染表格 -->
-    <!-- <div class="col-sm-12">
-      <el-table class="table-striped" :data="data" border style="width:100%">
-        <el-table-column>
-          <p-checkbox :checked="selectedRowKeys.indexOf(item.id) !== -1" @change="checkChange(item.id)"></p-checkbox>
-        </el-table-column>
-        <el-table-column v-for="item in data"
-                             :key="item.label"
-                             :min-width="column.minWidth"
-                             :prop="item.prop"
-                             :label="item.label">
-            </el-table-column>
-        <el-table-column label="操作">
-           
-            <template slot-scope="props">
-              <a
-                class="btn btn-simple btn-info btn-xs btn-icon like"
-                @click="itemFix"
-                >修改</a
-              >
-              <a
-                class="btn btn-simple btn-warning btn-xs btn-icon edit"
-                @click="itemLog"
-                >日志</a
-              >
-              <a
-                class="btn btn-simple btn-danger btn-xs btn-icon remove"
-                @confirm="itemDelete"
-                >删除</a
-              >
-            </template>
-          </el-table-column>
-      </el-table>
-    </div> -->
     <!-- × -->
     <template>
       <a-modal title="日志" v-model="logVisible" :footer="null">
@@ -475,6 +676,8 @@ import {
 } from "element-ui";
 import PProgress from "src/components/UIComponents/Progress.vue";
 import PSwitch from "src/components/UIComponents/Switch.vue";
+import PPagination from 'src/components/UIComponents/Pagination.vue'
+
 export default {
   components: {
     [DatePicker.name]: DatePicker,
@@ -487,9 +690,13 @@ export default {
     [Select.name]: Select,
     PSwitch,
     PProgress,
+    PPagination
   },
   data() {
     return {
+      // 乘机日期
+      updateDate: "",
+      tripDate: "",
       // 上传文件
       fileList: [],
       uploading: false,
@@ -526,90 +733,8 @@ export default {
         orderBy: { filed: "deptime", sort: "desc" },
       },
       // 分库信息
-      tablesrc: "",
+      tablesrc: "privateflight",
       tabletitle: "",
-      data: [
-        {
-          prop: "airCo",
-          label: "航司",
-        },
-        {
-          prop: "tripAirPort",
-          label: "机场码",
-        },
-        {
-          prop: "tripCity",
-          label: "城市码",
-        },
-        {
-          prop: "flightNumber",
-          label: "航班号",
-        },
-        {
-          prop: "depDate",
-          label: "乘机日期",
-        },
-        {
-          prop: "depTime",
-          label: "出发时间",
-        },
-        {
-          prop: "arrTime",
-          label: "到达时间",
-        },
-        {
-          prop: "",
-          label: "阶梯运价",
-        },
-        {
-          prop: "",
-          label: "舱位",
-        },
-        {
-          prop: "",
-          label: "余位",
-        },
-        {
-          prop: "",
-          label: "成人价",
-        },
-        {
-          prop: "",
-          label: "成人税",
-        },
-        {
-          prop: "",
-          label: "儿童价",
-        },
-        {
-          prop: "",
-          label: "儿童税",
-        },
-        {
-          prop: "",
-          label: "舱等",
-        },
-        {
-          prop: "",
-          label: "数据更新时间",
-        },
-        {
-          prop: "",
-          label: "来源",
-        },
-        {
-          prop: "",
-          label: "上下架",
-        },
-        {
-          prop: "",
-          label: "更新状态",
-        },
-        {
-          prop: "",
-          label: "操作",
-        }
-      ],
       tableData: [
         {
           id: "395345",
@@ -625,7 +750,7 @@ export default {
     };
   },
   mounted() {
-    const srctype = this.$route.name;
+    const srctype = "privateflight";
     this.tablesrcChange(srctype);
   },
   watch: {
@@ -1033,6 +1158,7 @@ export default {
                 filter.routeReturn = false;
               }
               filter.destination = that.tablesrc; // 分库信息
+              // filter.destination="privateflight"
               let query = _.map(filter, (v, i) => `${i}=${v}`).join("&");
 
               policyExportFile(query)
@@ -1221,7 +1347,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .extended-forms .el-select {
   width: 100%;
   margin-bottom: 30px;
@@ -1239,5 +1365,164 @@ export default {
 }
 .form-control {
   height: 30px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.operate-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.table-bar {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+}
+
+.ant-divider-horizontal {
+  margin: 10px 0;
+}
+.ant-table-wrapper >>> .ant-table-pagination.ant-pagination {
+  float: left;
+  margin: 0 0 20px 0;
+}
+.unit {
+  margin: 0 8px;
+}
+.in-w {
+  width: 80px;
+}
+
+.item-line:hover {
+  background-color: #b3d4fc;
+}
+.item-th {
+  display: table-cell;
+  vertical-align: middle;
+  position: relative;
+}
+.item-td {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.sorter-box {
+  position: absolute;
+  width: 12px;
+  right: 10px;
+  top: 6px;
+}
+.sorter-box .sorter-icon {
+  font-size: 12px;
+  color: grey;
+  position: relative;
+}
+.sorter-box .sorter-icon:first-child {
+  bottom: 0px;
+}
+.sorter-box .sorter-icon:last-child {
+  bottom: 4px;
+}
+.item-sorter:hover {
+  background-color: #f1f1f1;
+}
+table th {
+  height: 36px;
+  vertical-align: middle;
+  font-weight: bold;
+  padding: 0 4px;
+  top: 0;
+  position: sticky;
+  background-color: #fff;
+  z-index: 100;
+  border-bottom: 1px solid #d8d8d8;
+}
+table tr {
+  border-bottom: 1px solid #e8e8e8;
+}
+table tr:hover {
+  background-color: #e2f6ff;
+}
+table tr td {
+  padding: 4px 6px;
+  line-height: 20px;
+}
+.table-box {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #e8e8e8;
+  overflow: auto;
+  scroll-behavior: smooth;
+  position: relative;
+  height: 100%;
+}
+
+.table-fixedt {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 100;
+}
+.table-fixedr {
+  position: sticky;
+  right: 0;
+  background-color: #fff;
+}
+ol,
+ul {
+  list-style: none;
+  float: left;
+}
+.ant-pagination,
+.ant-pagination ol,
+.ant-pagination ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ant-pagination {
+  font-family: Chinese Quote, -apple-system, BlinkMacSystemFont, Segoe UI,
+    PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica,
+    Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.65);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ant-pagination.mini .ant-pagination-simple-pager,
+.ant-pagination.mini .ant-pagination-total-text {
+  height: 24px;
+  line-height: 24px;
+}
+.ant-pagination:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  overflow: hidden;
+  visibility: hidden;
+}
+.ant-pagination.mini .ant-pagination-item {
+  margin: 0;
+  min-width: 24px;
+  height: 24px;
+  line-height: 22px;
+}
+/* 页数选择的样式 */
+.select-default.el-select .el-input input {
+  width: 100px;
+}
+label > .page {
+  margin-left: 10px; 
+}
+.font{
+  font-family: cursive;
+  color: #3d5e6e;
 }
 </style>

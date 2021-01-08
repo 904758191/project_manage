@@ -22,10 +22,18 @@ import Icons from 'src/components/Dashboard/Views/Components/Icons.vue'
 import Typography from 'src/components/Dashboard/Views/Components/Typography.vue'
 
 // Forms pages
-import RegularForms from 'src/components/Dashboard/Views/Forms/RegularForms.vue'
-import ExtendedForms from 'src/components/Dashboard/Views/Forms/ExtendedForms.vue'
+// 精细化调价
+import JingXiManage from 'src/components/Dashboard/Views/Forms/JingXiManage.vue'
+// TF数据
+import TFDate from 'src/components/Dashboard/Views/Forms/TFDate.vue'
+// 点击TF数据跳转的页面
 import ValidationForms from 'src/components/Dashboard/Views/Forms/ValidationForms.vue'
-import Wizard from 'src/components/Dashboard/Views/Forms/Wizard.vue'
+// 航班数据
+import HangbanDate from 'src/components/Dashboard/Views/Forms/HangBanShuJu.vue'
+// 数据更新规则
+import FlightRefreshRule from 'src/components/Dashboard/Views/Forms/FlightRefreshRule.vue'
+// OTA接口验证
+import OTAJieKou from 'src/components/Dashboard/Views/Forms/OTAJieKou.vue'
 
 // TableList pages
 import RegularTables from 'src/components/Dashboard/Views/Tables/RegularTables.vue'
@@ -112,20 +120,20 @@ let formsMenu = {
   redirect: '/forms/regular',
   children: [
     {
-      path: 'regular',
-      name: 'Regular Forms',
+      path: 'jingximanage',
+      name: 'JingXiManage',
       meta:{
         requireAuth:true
       },
-      component: RegularForms
+      component: JingXiManage
     },
     {
-      path: 'extended',
-      name: 'Extended Forms',
+      path: 'tfdate',
+      name: 'TFDate',
       meta:{
         requireAuth:true
       },
-      component: ExtendedForms
+      component: TFDate
     },
     {
       path: 'validation',
@@ -136,12 +144,28 @@ let formsMenu = {
       component: ValidationForms
     },
     {
-      path: 'wizard',
-      name: 'Wizard',
+      path: 'hangbandate',
+      name: 'hangbandate',
       meta:{
         requireAuth:true
       },
-      component: Wizard
+      component: HangbanDate
+    },
+    {
+      path:'flightrefreshrule',
+      name:'Flightrefreshrule',
+      meta:{
+        requireAuth:true
+      },
+      component:FlightRefreshRule
+    },
+    {
+      path:'otajiekou',
+      name:'OTAjiekou',
+      meta:{
+        requireAuth:true
+      },
+      component:OTAJieKou
     }
   ]
 }

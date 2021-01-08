@@ -45,23 +45,39 @@ export default [
     }]
   },
   {
-    name: 'Forms',
+    name: '运价管理',
     icon: 'ti-clipboard',
     children: [{
-      name: 'Regular Forms',
-      path: '/forms/regular'
+      name: '航班数据',
+      path: '/forms/hangbandate'
     },
     {
-      name: 'Extended Forms',
-      path: '/forms/extended'
+      name: 'TF数据',
+      path: '/forms/tfdate'
     },
     {
       name: 'Validation Forms',
       path: '/forms/validation'
     },
     {
-      name: 'Wizard',
-      path: '/forms/wizard'
+      name: '精细化调价',
+      path: '/forms/jingximanage'
+    },
+    {
+      name:'数据更新规则',
+      path:'/forms/flightrefreshrule'
+    },
+    {
+      name:'OTA接口验证',
+      path:'/forms/otajiekou'
+    },
+    {
+      name:'平台配置',
+      path:''
+    },
+    {
+      name:'航司行李配置',
+      path:''
     }
     ]
   },

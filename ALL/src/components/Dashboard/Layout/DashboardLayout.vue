@@ -1,4 +1,5 @@
 <template>
+<!-- 加载侧边栏 -->
   <div class="wrapper">
 
     <side-bar type="sidebar" :sidebar-links="$sidebar.sidebarLinks">

@@ -26,6 +26,7 @@ import './assets/sass/paper-dashboard.scss'
 import './assets/sass/element_variables.scss'
 import './assets/sass/demo.scss'
 
+// 加载侧边栏
 import sidebarLinks from './sidebarLinks'
 
 import './utils/util'
