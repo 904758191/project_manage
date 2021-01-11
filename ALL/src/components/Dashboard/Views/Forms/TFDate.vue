@@ -7,7 +7,9 @@
         <div class="row no-gutters">
           <a-form-item>
             <div class="form-group col-md-1">
-              <label key="airCo" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
+              <label
+                key="airCo"
+                style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
                 >航司:
                 <input
                   v-decorator="[
@@ -30,7 +32,9 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-              <label key="depAirPort" style=" font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
+              <label
+                key="depAirPort"
+                style=" font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"
                 >出发机场:
                 <input
                   type="text"
@@ -42,7 +46,6 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-  
               <label key="arrAirPort" style="font-family: cursive;"
                 >到达机场:
                 <input
@@ -67,8 +70,9 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-  
-              <label key="arrCity" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"
+              <label
+                key="arrCity"
+                style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"
                 >到达城市:
                 <input
                   type="text"
@@ -80,7 +84,9 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-              <label key="flightNumber" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
+              <label
+                key="flightNumber"
+                style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"
                 >航班号:
                 <input
                   type="text"
@@ -92,7 +98,9 @@
               </label>
             </div>
             <div class="form-group col-md-1">
-              <label key="cabin" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
+              <label
+                key="cabin"
+                style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
                 >舱位:
                 <input
                   type="text"
@@ -613,6 +621,38 @@
         </p-pagination>
       </div>
     </div>
+    <!--渲染表格 -->
+    <!-- <el-table :data="data" border style="width:100%" :default-sort = "{prop: 'depTime', order: 'descending'}">
+      <el-table-column type="selection"></el-table-column>
+      <el-table-column
+        v-for="column in tableColumns"
+        :key="column.label"
+        :prop="column.prop"
+        :label="column.label" 
+      >
+      </el-table-column>
+      <el-table-column sortable prop="depTime"></el-table-column>
+      <el-table-column  prop="" label="成人价"></el-table-column>
+      <el-table-column>
+        <span v-html="formatContent(item, 2)"></span>
+              <a-tooltip placement="left">
+                <template slot="title">
+                  <span v-html="formatContent(item)"></span>
+                </template>
+                <a-icon
+                  type="info-circle"
+                  style="cursor: pointer; cursor: pointer; position: absolute; right: 30px; top: 8px;"
+                />
+                </a-tooltip>
+      </el-table-column>
+      <el-table-column label="操作" fixed="right" width="130px">
+        <template slot-scope="scope">
+                        <el-button type="text" size="small" @click="itemFix">修改</el-button>
+                        <el-button type="text" size="small" @confirm="itemDelete(item.id)">删除</el-button>
+                        <el-button type="text" size="small" @click="itemLog">日志</el-button>
+                      </template>
+      </el-table-column>
+    </el-table> -->
     <!-- × -->
     <template>
       <a-modal title="日志" v-model="logVisible" :footer="null">
@@ -676,7 +716,7 @@ import {
 } from "element-ui";
 import PProgress from "src/components/UIComponents/Progress.vue";
 import PSwitch from "src/components/UIComponents/Switch.vue";
-import PPagination from 'src/components/UIComponents/Pagination.vue'
+import PPagination from "src/components/UIComponents/Pagination.vue";
 
 export default {
   components: {
@@ -690,7 +730,7 @@ export default {
     [Select.name]: Select,
     PSwitch,
     PProgress,
-    PPagination
+    PPagination,
   },
   data() {
     return {
@@ -709,6 +749,81 @@ export default {
         perPageOptions: [5, 10, 25, 50],
       },
       data: [],
+      tableColumns: [
+        {
+          prop: "id",
+          label: "ID",
+        },
+        {
+          prop: "airCo",
+          label: "航司",
+        },
+        {
+          prop: "tripAirPort",
+          label: "机场码",
+        },
+        {
+          prop: "tripCity",
+          label: "城市码",
+        },
+        {
+          prop: "flightNumber",
+          label: "航班号",
+        },
+        {
+          prop: "depDate",
+          label: "乘机日期",
+        },
+        {
+          prop: "depTime",
+          label: "出发时间",
+        },
+        {
+          prop: "arrTime",
+          label: "到达时间",
+        },
+        {
+          prop: "",
+          label: "阶梯运价",
+        },
+        {
+          prop: "",
+          label: "舱位",
+        },
+        {
+          prop: "",
+          label: "余位",
+        },
+        {
+          prop: "",
+          label: "成人价",
+        },
+        {
+          prop: "",
+          label: "成人税",
+        },
+        {
+          prop: "",
+          label: "儿童价",
+        },
+        {
+          prop: "",
+          label: "儿童税",
+        },
+        {
+          prop: "",
+          label: "舱等",
+        },
+        {
+          prop: "",
+          label: "数据更新时间",
+        },
+        {
+          prop: "",
+          label: "来源",
+        },
+      ],
+
       loading: false,
       tablescrolly, // Y轴滚动高度
       pagination: {
@@ -1519,9 +1634,9 @@ ul {
   width: 100px;
 }
 label > .page {
-  margin-left: 10px; 
+  margin-left: 10px;
 }
-.font{
+.font {
   font-family: cursive;
   color: #3d5e6e;
 }

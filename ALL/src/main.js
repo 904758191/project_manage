@@ -6,9 +6,14 @@ import VeeValidate from 'vee-validate'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 import App from './App.vue'
+import $ from 'jquery'
 import axios from 'axios'
+import Vueaxios from 'vue-axios'
 Vue.prototype.$ajax=axios
+axios.defaults.baseURL = "http://192.168.31.183:8080";
+axios.defaults.timeout = 3000;
 
+Vue.use(Vueaxios,axios)
 // Plugins
 import GlobalComponents from './gloablComponents'
 import GlobalDirectives from './globalDirectives'

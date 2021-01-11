@@ -34,6 +34,9 @@ import HangbanDate from 'src/components/Dashboard/Views/Forms/HangBanShuJu.vue'
 import FlightRefreshRule from 'src/components/Dashboard/Views/Forms/FlightRefreshRule.vue'
 // OTA接口验证
 import OTAJieKou from 'src/components/Dashboard/Views/Forms/OTAJieKou.vue'
+// form表单跳转路由
+import tankuangHangbandate from 'src/components/Dashboard/Views/Forms/tankuang/hangbandata_new.vue'
+
 
 // TableList pages
 import RegularTables from 'src/components/Dashboard/Views/Tables/RegularTables.vue'
@@ -166,6 +169,14 @@ let formsMenu = {
         requireAuth:true
       },
       component:OTAJieKou
+    },
+    {
+      path:'tankuang/hangbandata_new',
+      name:'tankuang/hangbandata_new',
+      meta:{
+        requireAuth:true
+      },
+      component:tankuangHangbandate
     }
   ]
 }

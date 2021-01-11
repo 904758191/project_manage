@@ -221,7 +221,7 @@ export default {
           let loginParams = values;
           Login(loginParams)
             .then((res) => {
-              this.$router.push("/forms/extended");
+              this.$router.push("/forms/tfdate");
             })
             .catch((err) => {
               this.$message.error(err);

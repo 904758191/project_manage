@@ -1,14 +1,13 @@
-
 <template>
-<!-- 航班数据 -->
+  <!-- 航班数据 -->
   <div>
     <a-divider orientation="left">
-        航班数据
-        <span
-          style="font-size: 14px; color: red;"
-        >（a.凡是通过批量录入导入的政策，都只会新增，不会更新原有政策；b.当存在多条政策时，系统默认取价格低的政策；）</span>
-      </a-divider>
-      <a-form>
+      航班数据
+      <span style="font-size: 14px; color: red;"
+        >（a.凡是通过批量录入导入的政策，都只会新增，不会更新原有政策；b.当存在多条政策时，系统默认取价格低的政策；）</span
+      >
+    </a-divider>
+    <a-form>
       <!-- 第一行 -->
       <div class="row">
         <div class="form-group col-md-1">
@@ -17,24 +16,18 @@
               <button class="btn btn-info btn-fill">
                 选择文件
               </button>
-              </a-upload>
-          </a-form-item> 
+            </a-upload>
+          </a-form-item>
         </div>
         <button class="col-md-1 btn btn-info btn-fill">上传</button>
         <button class="col-md-1 btn btn-info btn-fill">下载样例</button>
         <button class="col-md-1 btn btn-info btn-fill">单程导入</button>
         <button class="col-md-1 btn btn-info btn-fill">往返录入</button>
         <button class="col-md-1 btn btn-info btn-fill">往返SP录入</button>
+        <button class="col-md-1 btn btn-info btn-fill" @click="itemFix">新增</button>
       </div>
       <!-- 第二行 -->
       <div class="row">
-          <div class="col-md-2 form-group">
-          <label>平台:</label>
-          <el-select  placeholder="捷运">
-            <el-option value="0" label="捷运"></el-option>
-            <el-option value="1" label="甬航"></el-option>
-          </el-select>
-        </div>
         <div class="col-md-1">
           <label>类型</label>
           <el-select placeholder="全部">
@@ -44,23 +37,39 @@
         </div>
         <div class="col-md-1">
           <label>航司</label>
-          <input type="text" class="form-control" placeholder="TR">
+          <input
+            type="text"
+            v-model="searchCondition['carrier']"
+            class="form-control"
+            placeholder="TR"
+          />
         </div>
         <div class="col-md-1">
           <label>出发机场</label>
-          <input type="text" class="form-control" placeholder="NGB">
+          <input
+            type="text"
+            v-model="searchCondition['depAirport']"
+            class="form-control"
+            placeholder="NGB"
+          />
         </div>
         <div class="col-md-1">
           <label>到达机场</label>
-          <input type="text" class="form-control" placeholder="NGB">
+          <input
+            type="text"
+            v-model="searchCondition['arrAirport']"
+            class="form-control"
+            placeholder="NGB"
+          />
         </div>
         <div class="col-md-1">
           <label>航班号</label>
-          <input type="text" class="form-control" placeholder="UO112">
-        </div>
-        <div class="col-md-1">
-          <label>舱位:</label>
-          <input type="text" class="form-control" placeholder="X">
+          <input
+            type="text"
+            v-model="searchCondition['fightNumber']"
+            class="form-control"
+            placeholder="UO112"
+          />
         </div>
 
       </div>
@@ -68,16 +77,16 @@
       <div class="row">
         <div class="col-md-1">
           <label>票价:</label>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" />
         </div>
         <div class="col-md-4">
           <label>去程日期:</label>
           <el-date-picker
-                  type="daterange"
-                  range-separator="~"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                ></el-date-picker>
+            type="daterange"
+            range-separator="~"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+          ></el-date-picker>
         </div>
         <div class="col-md-1">
           <label>上架下架</label>
@@ -94,14 +103,24 @@
             <el-option value="1" label="自动"></el-option>
           </el-select>
         </div>
-        <button class="col-md-1 btn btn-info btn-fill">查询</button>
+        <button class="col-md-1 btn btn-info btn-fill" @click="search()">
+          查询
+        </button>
         <div class="col-md-1">
           <p-checkbox>查往返</p-checkbox>
         </div>
-
       </div>
-      </a-form>
-      
+    </a-form>
+    <div>
+      <el-table :data="dataList" border style="width:100%">
+        <el-table-column
+          v-for="column in tableColumns"
+          :key="column.label"
+          :prop="column.prop"
+          :label="column.label"
+        ></el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
@@ -119,10 +138,10 @@ import {
 } from "element-ui";
 import PProgress from "src/components/UIComponents/Progress.vue";
 import PSwitch from "src/components/UIComponents/Switch.vue";
-import PPagination from 'src/components/UIComponents/Pagination.vue'
+import PPagination from "src/components/UIComponents/Pagination.vue";
 
 export default {
-    components: {
+  components: {
     [DatePicker.name]: DatePicker,
     [TimeSelect.name]: TimeSelect,
     [Slider.name]: Slider,
@@ -133,12 +152,51 @@ export default {
     [Select.name]: Select,
     PSwitch,
     PProgress,
-    PPagination
+    PPagination,
   },
-}
+  data() {
+    return {
+      dataList: [],
+      searchCondition: {},
+      code:999,
+      tableColumns:[
+        {
+          prop:'carrier',
+          label:'航司'
+        },
+        {
+          prop:'depAirport',
+          label:'出发机场'
+        },
+        {
+          prop:'arrAirport',
+          label:'到达机场'
+        },
+        {
+          prop:'fightNumber',
+          label:'航班号'
+        }
+      ]
+    };
+  },
+  methods: {
+    async search() {
+      // this.dataList=[],
+      let rep = await this.axios.post(
+        "/privateFare/searchWithEntity",
+        this.searchCondition
+      );
+      this.dataList = rep.data.list
+    },
+    itemFix(e){
+      let id=e.target.dataset.id;
+      this.$router.push(`/forms/tankuang/hangbandata_new`);
+    }
+  },
+};
 </script>
 <style scoped>
-  button{
-    margin:0px 5px
-  }
+button {
+  margin: 0px 5px;
+}
 </style>
