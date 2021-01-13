@@ -24,7 +24,9 @@
         <button class="col-md-1 btn btn-info btn-fill">单程导入</button>
         <button class="col-md-1 btn btn-info btn-fill">往返录入</button>
         <button class="col-md-1 btn btn-info btn-fill">往返SP录入</button>
-        <button class="col-md-1 btn btn-info btn-fill" @click="itemFix">新增</button>
+        <button class="col-md-1 btn btn-info btn-fill" @click="itemFix">
+          新增
+        </button>
       </div>
       <!-- 第二行 -->
       <div class="row">
@@ -39,7 +41,7 @@
           <label>航司</label>
           <input
             type="text"
-            v-model="searchCondition['carrier']"
+            v-model="searchCondition['searchCarrier']"
             class="form-control"
             placeholder="TR"
           />
@@ -71,7 +73,6 @@
             placeholder="UO112"
           />
         </div>
-
       </div>
       <!-- 第三行 -->
       <div class="row">
@@ -119,6 +120,13 @@
           :prop="column.prop"
           :label="column.label"
         ></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button type="text" size="small" @click="openEdit(scope.row.id)"
+              >编辑</el-button
+            >
+          </template>
+        </el-table-column>
       </el-table>
     </div>
   </div>
@@ -158,25 +166,25 @@ export default {
     return {
       dataList: [],
       searchCondition: {},
-      code:999,
-      tableColumns:[
+      code: 999,
+      tableColumns: [
         {
-          prop:'carrier',
-          label:'航司'
+          prop: "searchCarrier",
+          label: "航司",
         },
         {
-          prop:'depAirport',
-          label:'出发机场'
+          prop: "searchDepAirport",
+          label: "出发机场",
         },
         {
-          prop:'arrAirport',
-          label:'到达机场'
+          prop: "searchArrAirport",
+          label: "到达机场",
         },
         {
-          prop:'fightNumber',
-          label:'航班号'
-        }
-      ]
+          prop: "searchFlightNumber",
+          label: "航班号",
+        },
+      ],
     };
   },
   methods: {
@@ -186,12 +194,18 @@ export default {
         "/privateFare/searchWithEntity",
         this.searchCondition
       );
-      this.dataList = rep.data.list
+      this.dataList = rep.data.list;
     },
-    itemFix(e){
-      let id=e.target.dataset.id;
+    itemFix(e) {
+      let id = e.target.dataset.id;
       this.$router.push(`/forms/tankuang/hangbandata_new`);
-    }
+    },
+    openEdit(id) {
+      this.$router.push({
+        path: `/forms/tankuang/hangbandata_new`,
+        query: { id },
+      });
+    },
   },
 };
 </script>

@@ -143,56 +143,9 @@
               增加
             </button>
           </div>
-          <el-form :model="publicCabins_go">
-            <div class="row">
-              <div class="col-md-2">
-                <p></p>
-              </div>
-              <div class="form-group col-md-2">
-                <label>舱位：</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="publicCabins_go[0].cabinName"
-                />
-              </div>
-              <div class="form-group col-md-2">
-                <label>数量：</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="publicCabins_go[0].count"
-                />
-              </div>
-              <div class="form-group col-md-2">
-                <label>成人税：</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="publicCabins_go[0].adultIax"
-                />
-              </div>
-              <div class="form-group col-md-2">
-                <label>儿童税：</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="publicCabins_go[0].childTax"
-                />
-              </div>
-              <div class="form-group col-md-2">
-                <label>舱位价格：</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="publicCabins_go[0].cabinPrice"
-                />
-              </div>
-            </div>
-          </el-form>
           <div
             v-for="(item, index) in fromSegmentList"
-            v-if="index >= 1 && tripType != 1"
+            v-if="index >= 1"
             :key="index"
             class="row"
           >
@@ -243,38 +196,7 @@
                   />
                 </div>
               </el-form-item>
-              <div
-                v-for="(item, index) in publicCabins_go"
-                v-if="index >= 1"
-                :key="index"
-                class="row"
-              >
-                <div class="col-md-2">
-                  <p>公有运价：</p>
-                </div>
-                <el-form-item class="col-md-2">
-                  <label>舱位</label>
-                  <el-input v-model="item.cabinName"></el-input>
-                </el-form-item>
-                <el-form-item class="col-md-2">
-                  <label>数量</label>
-                  <el-input v-model="item.count"></el-input> </el-form-item
-                ><el-form-item>
-                  <el-form-item class="col-md-2">
-                    <label>成人税</label>
-                    <el-input v-model="item.adultTax"></el-input>
-                  </el-form-item>
-                  <el-form-item class="col-md-2">
-                    <label>儿童税</label>
-                    <el-input v-model="item.childTax"></el-input>
-                  </el-form-item>
-                  <el-form-item class="col-md-2">
-                    <label>舱位价格</label>
-                    <el-input v-model="item.cabinPrice"></el-input>
-                  </el-form-item>
-                </el-form-item>
-              </div>
-              <!-- <button
+              <button
                 class="btn btn-small col-md-1"
                 @click="deleteSelect(item, index)"
               >
@@ -282,13 +204,91 @@
               </button>
               <button class="btn btn-small col-md-1" @click="addSelect">
                 添加
-              </button> -->
+              </button>
             </el-form-item>
           </div>
         </div>
 
         <h4>公有运价：</h4>
+        <el-form :model="publicCabins_go">
+          <div class="row">
+            <div class="col-md-2">
+              <p></p>
+            </div>
+            <div class="form-group col-md-2">
+              <label>舱位：</label>
+              <input
+                type="text"
+                class="form-control"
+                v-model="publicCabins_go[0].cabinName"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label>数量：</label>
+              <input
+                type="text"
+                class="form-control"
+                v-model="publicCabins_go[0].count"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label>成人税：</label>
+              <input
+                type="text"
+                class="form-control"
+                v-model="publicCabins_go[0].adultIax"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label>儿童税：</label>
+              <input
+                type="text"
+                class="form-control"
+                v-model="publicCabins_go[0].childTax"
+              />
+            </div>
+            <div class="form-group col-md-2">
+              <label>舱位价格：</label>
+              <input
+                type="text"
+                class="form-control"
+                v-model="publicCabins_go[0].cabinPrice"
+              />
+            </div>
 
+            <div
+              v-for="(item, index) in publicCabins_go"
+              v-if="index >= 1"
+              :key="index"
+              class="row"
+            >
+              <div class="col-md-2">
+                <p></p>
+              </div>
+              <el-form-item class="col-md-2">
+                <label>舱位</label>
+                <el-input v-model="item.cabinName"></el-input>
+              </el-form-item>
+              <el-form-item class="col-md-2">
+                <label>数量</label>
+                <el-input v-model="item.count"></el-input> </el-form-item
+              ><el-form-item>
+                <el-form-item class="col-md-2">
+                  <label>成人税</label>
+                  <el-input v-model="item.adultTax"></el-input>
+                </el-form-item>
+                <el-form-item class="col-md-2">
+                  <label>儿童税</label>
+                  <el-input v-model="item.childTax"></el-input>
+                </el-form-item>
+                <el-form-item class="col-md-2">
+                  <label>舱位价格</label>
+                  <el-input v-model="item.cabinPrice"></el-input>
+                </el-form-item>
+              </el-form-item>
+            </div>
+          </div>
+        </el-form>
         <h4>私有运价：</h4>
         <el-form ref="fromSegmentList" :model="privarcCabins">
           <div class="row" v-if="tripType == 1">

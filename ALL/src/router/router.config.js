@@ -36,6 +36,7 @@ import FlightRefreshRule from 'src/components/Dashboard/Views/Forms/FlightRefres
 import OTAJieKou from 'src/components/Dashboard/Views/Forms/OTAJieKou.vue'
 // form表单跳转路由
 import tankuangHangbandate from 'src/components/Dashboard/Views/Forms/tankuang/hangbandata_new.vue'
+import tankuangHangbandate_table from 'src/components/Dashboard/Views/Forms/tankuang/hangbandata_table_edit.vue'
 
 
 // TableList pages
@@ -177,6 +178,14 @@ let formsMenu = {
         requireAuth:true
       },
       component:tankuangHangbandate
+    },
+    {
+      path:'tankuang/hangbandata_table_edit',
+      name:'tankuang/hangbandata_table_edit',
+      meta:{
+        requireAuth:true
+      },
+      component:tankuangHangbandate_table
     }
   ]
 }
