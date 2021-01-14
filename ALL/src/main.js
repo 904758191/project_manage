@@ -10,7 +10,7 @@ import $ from 'jquery'
 import axios from 'axios'
 import Vueaxios from 'vue-axios'
 Vue.prototype.$ajax=axios
-axios.defaults.baseURL = "http://192.168.31.182:8082";
+axios.defaults.baseURL = "http://192.168.31.183:8082";
 axios.defaults.timeout = 3000;
 
 Vue.use(Vueaxios,axios)
