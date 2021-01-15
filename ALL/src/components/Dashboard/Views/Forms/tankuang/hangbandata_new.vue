@@ -147,12 +147,12 @@
       </div>
 
       <div class="row">
-        <h4 style="color:red">公有运价：</h4>
+        <!-- <h4 style="color:red">：</h4> -->
         <el-form :model="publicCabins_go">
           <div class="row">
-            <!-- <div class="col-md-2">
-              <p></p>
-            </div> -->
+            <div class="col-md-2">
+              <p>公有运价</p>
+            </div>
             <div class="form-group col-md-2">
               <label>舱位：</label>
               <input
@@ -185,7 +185,7 @@
                 v-model="publicCabins_go[0].adultTax"
               />
             </div>
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
               <label>儿童价：</label>
               <input
                 type="text"
@@ -193,7 +193,7 @@
                 v-model="publicCabins_go[0].childPrice"
               />
             </div>
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
               <label>儿童税：</label>
               <input
                 type="text"
@@ -207,8 +207,11 @@
 
       <el-form ref="fromSegmentList" :model="privarcCabins">
         <div class="row">
-          <h4 style="color:red">私有运价：</h4>
+          <!-- <h4 style="color:red">：</h4> -->
           <!-- 动态加载表单 -->
+          <div class="col-md-2">
+            <p>私有运价</p>
+          </div>
           <el-form-item class="col-md-2">
             <label>舱位</label>
             <el-input v-model="privarcCabins[0].cabinName"></el-input>
@@ -225,11 +228,11 @@
             <label>成人税</label>
             <el-input v-model="privarcCabins[0].adultTax"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童价</label>
             <el-input v-model="privarcCabins[0].childPrice"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童税</label>
             <el-input v-model="privarcCabins[0].childTax"></el-input>
           </el-form-item>
@@ -275,11 +278,11 @@
               <label>成人税</label>
               <el-input v-model="item.adultTax"></el-input>
             </el-form-item>
-            <el-form-item class="col-md-1">
+            <el-form-item class="col-md-2">
               <label>儿童价</label>
               <el-input v-model="item.childPrice"></el-input>
             </el-form-item>
-            <el-form-item class="col-md-1">
+            <el-form-item class="col-md-2">
               <label>儿童税</label>
               <el-input v-model="item.childTax"></el-input>
             </el-form-item>
@@ -381,11 +384,11 @@
             <label>成人税</label>
             <el-input v-model="item.publicCabins[0].adultTax"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童价</label>
             <el-input v-model="item.publicCabins[0].childPrice"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童税</label>
             <el-input v-model="item.publicCabins[0].childTax"></el-input>
           </el-form-item>
@@ -410,11 +413,11 @@
             <label>成人税</label>
             <el-input v-model="item.privarcCabins[0].adultTax"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童价</label>
             <el-input v-model="item.privarcCabins[0].childPrice"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童税</label>
             <el-input v-model="item.privarcCabins[0].childTax"></el-input>
           </el-form-item>
@@ -519,12 +522,12 @@
       </div>
 
       <div class="row">
-        <h4 style="color:red">公有运价：</h4>
+        <!-- <h4 style="color:red">：</h4> -->
         <el-form :model="publicCabins_back">
           <div class="row">
-            <!-- <div class="col-md-2">
-              <p></p>
-            </div> -->
+            <div class="col-md-2">
+              <p>公有运价</p>
+            </div>
             <div class="form-group col-md-2">
               <label>舱位：</label>
               <input
@@ -557,7 +560,7 @@
                 v-model="publicCabins_back[0].adultTax"
               />
             </div>
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
               <label>儿童价：</label>
               <input
                 type="text"
@@ -565,7 +568,7 @@
                 v-model="publicCabins_back[0].childPrice"
               />
             </div>
-            <div class="form-group col-md-1">
+            <div class="form-group col-md-2">
               <label>儿童税：</label>
               <input
                 type="text"
@@ -579,8 +582,11 @@
 
       <el-form ref="fromSegmentList" :model="privarcCabins_back">
         <div class="row">
-          <h4 style="color:red">私有运价：</h4>
+          <!-- <h4 style="color:red">：</h4> -->
           <!-- 动态加载表单 -->
+          <div class="col-md-2">
+            <p>私有运价</p>
+          </div>
           <el-form-item class="col-md-2">
             <label>舱位</label>
             <el-input v-model="privarcCabins_back[0].cabinName"></el-input>
@@ -597,11 +603,11 @@
             <label>成人税</label>
             <el-input v-model="privarcCabins_back[0].adultTax"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童价</label>
             <el-input v-model="privarcCabins_back[0].childPrice"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童税</label>
             <el-input v-model="privarcCabins_back[0].childTax"></el-input>
           </el-form-item>
@@ -689,11 +695,11 @@
             <label>成人税</label>
             <el-input v-model="item.publicCabins[0].adultTax"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童价</label>
             <el-input v-model="item.publicCabins[0].childPrice"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童税</label>
             <el-input v-model="item.publicCabins[0].childTax"></el-input>
           </el-form-item>
@@ -718,11 +724,11 @@
             <label>成人税</label>
             <el-input v-model="item.privarcCabins[0].adultTax"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童价</label>
             <el-input v-model="item.privarcCabins[0].childPrice"></el-input>
           </el-form-item>
-          <el-form-item class="col-md-1">
+          <el-form-item class="col-md-2">
             <label>儿童税</label>
             <el-input v-model="item.privarcCabins[0].childTax"></el-input>
           </el-form-item>
@@ -739,7 +745,7 @@
         </div>
       </div>
     </div>
-    {{ retSegmentList }}
+
     <button class="btn btn-info" @click="submit">提交</button>
   </div>
 </template>
@@ -1081,5 +1087,9 @@ export default {
 }
 .show {
   display: none !important;
+}
+p {
+  color: black;
+  font-size: 30px;
 }
 </style>

@@ -87,6 +87,7 @@
             range-separator="~"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
+            v-model="date"
           ></el-date-picker>
         </div>
         <div class="col-md-1">
@@ -99,7 +100,7 @@
         <div class="col-md-1">
           <label>类型</label>
           <el-select placeholder="全部">
-            <el-option value label="全部"></el-option>
+            <el-option value="-1" label="全部"></el-option>
             <el-option value="0" label="手动"></el-option>
             <el-option value="1" label="自动"></el-option>
           </el-select>
@@ -113,13 +114,29 @@
       </div>
     </a-form>
     <div>
-      <el-table :data="dataList" border style="width:100%">
+      <!-- <el-table :data="dataList" border style="width:100%">
         <el-table-column
           v-for="column in tableColumns"
           :key="column.label"
           :prop="column.prop"
           :label="column.label"
         ></el-table-column>
+        <el-table-column label="航线">
+          <template slot-scope="scope"
+            >{{ scope.row.depCity }}-{{ scope.row.arrCity }}</template
+          >
+        </el-table-column>
+        <el-table-column label="航班信息">
+          <el-table :data="dataMessage" border style="width:100%">
+            <el-table-column
+              v-for="column in littleTab"
+              :key="column.label"
+              :prop="column.prop"
+              :label="column.label"
+            >
+            </el-table-column>
+          </el-table>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="openEdit(scope.row.id)"
@@ -127,7 +144,150 @@
             >
           </template>
         </el-table-column>
-      </el-table>
+      </el-table> -->
+
+      <!-- 表格渲染 -->
+      <table class="table table-bordered display mb-0">
+        <thead>
+          <tr>
+            <th>
+              <input
+                type="checkbox"
+                v-model="selectAll"
+                true-value="true"
+                false-value="false"
+                @click="selectAllClick"
+              />
+            </th>
+            <th>ID</th>
+            <th>类型</th>
+            <th>航司</th>
+            <th>去程日期</th>
+            <th>返程日期</th>
+            <th>运价类型</th>
+            <th>状态</th>
+            <th>航线</th>
+            <!-- <th>航班信息</th> -->
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody v-for="(data, index) in dataList" :key="index">
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>{{ data.id }}</td>
+            <td>{{ data.tripType }}</td>
+            <td>{{ data.searchCarrier }}</td>
+            <td>{{ data.depDate }}</td>
+            <td>{{ data.retDate }}</td>
+            <td>{{ data.fareType }}</td>
+            <td>{{ data.status }}</td>
+            <td>{{ data.depCity }}{{ data.arrCity }}</td>
+            <td>
+              <el-button type="text" size="small" @click="openEdit(id)"
+                >编辑</el-button
+              >
+            </td>
+          </tr>
+          <tr>
+            <td colspan="21">
+              <table class="table table-bordered display mb-0">
+                <tbody
+                  v-for="(fromSegment, index) in data.fromSegmentList"
+                  :key="index"
+                >
+                  <tr>
+                    <td>去程航班信息</td>
+                    <td>{{ fromSegment["carrier"] }}</td>
+                    <td>{{ fromSegment["arrTime"] }}</td>
+                    <td>{{ fromSegment["depTime"] }}</td>
+                    <td>{{ fromSegment["arrAirport"] }}</td>
+                    <td>{{ fromSegment["depAirport"] }}</td>
+                    <td>{{ fromSegment["flightNumber"] }}</td>
+                    <td v-if="data.fareType == 0">
+                      {{
+                        fromSegment.publicCabins["cabinName"] /
+                          fromSegment.publicCabins["count"]
+                      }}
+                    </td>
+                  </tr>
+                  <td colspan="7"></td>
+                  <tr
+                    v-if="data.fareType == 0"
+                    v-for="(pub, index) in fromSegment.publicCabins"
+                    :key="index"
+                  >
+                    <td>公有运价</td>
+                    <td>{{ pub["cabinName"] }}</td>
+                    <td>{{ pub["count"] }}</td>
+                    <td>{{ pub["adultPrice"] }}</td>
+                    <td>{{ pub["adultTax"] }}</td>
+                    <td>{{ pub["childTax"] }}</td>
+                    <td>{{ pub["childPrice"] }}</td>
+                  </tr>
+                  <tr
+                    v-for="(priv, index) in fromSegment.privateCabins"
+                    :key="index"
+                  >
+                    <td>私有运价</td>
+                    <td>{{ priv["cabinName"] }}</td>
+                    <td>{{ priv["count"] }}</td>
+                    <td>{{ priv["adultPrice"] }}</td>
+                    <td>{{ priv["adultTax"] }}</td>
+                    <td>{{ priv["childTax"] }}</td>
+                    <td>{{ priv["childPrice"] }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="21">
+              <table class="table table-bordered display mb-0">
+                <tbody
+                  v-for="(retSegment, index) in data.retSegmentList"
+                  :key="index"
+                >
+                  <tr>
+                    <td>回程航班信息</td>
+                    <td>{{ retSegment["carrier"] }}</td>
+                    <td>{{ retSegment["arrTime"] }}</td>
+                    <td>{{ retSegment["depTime"] }}</td>
+                    <td>{{ retSegment["arrAirport"] }}</td>
+                    <td>{{ retSegment["depAirport"] }}</td>
+                    <td>{{ retSegment["flightNumber"] }}</td>
+                  </tr>
+                  <td colspan="7"></td>
+                  <tr
+                    col
+                    v-for="(pub, index) in retSegment.publicCabins"
+                    :key="index"
+                  >
+                    <td>公有运价</td>
+                    <td>{{ pub["cabinName"] }}</td>
+                    <td>{{ pub["count"] }}</td>
+                    <td>{{ pub["adultPrice"] }}</td>
+                    <td>{{ pub["adultTax"] }}</td>
+                    <td>{{ pub["childTax"] }}</td>
+                    <td>{{ pub["childPrice"] }}</td>
+                  </tr>
+                  <tr
+                    v-for="(priv, index) in retSegment.privateCabins"
+                    :key="index"
+                  >
+                    <td>私有运价</td>
+                    <td>{{ priv["cabinName"] }}</td>
+                    <td>{{ priv["count"] }}</td>
+                    <td>{{ priv["adultPrice"] }}</td>
+                    <td>{{ priv["adultTax"] }}</td>
+                    <td>{{ priv["childTax"] }}</td>
+                    <td>{{ priv["childPrice"] }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -164,25 +324,64 @@ export default {
   },
   data() {
     return {
+      // 公有的大标头
       dataList: [],
+      // 回程航班公有信息
+      fromSegmentList: [],
+      // 公有运价
+      publicCabins: [],
+      // 私有运价
+      privateCabins: [],
+      selectAll: false,
+      date: "",
       searchCondition: {},
       code: 999,
       tableColumns: [
+        {
+          prop: "id",
+          label: "ID",
+        },
+        {
+          prop: "tripType",
+          label: "类型",
+        },
         {
           prop: "searchCarrier",
           label: "航司",
         },
         {
-          prop: "searchDepAirport",
-          label: "出发机场",
+          prop: "depDate",
+          label: "去程日期",
         },
         {
-          prop: "searchArrAirport",
+          prop: "retDate",
+          label: "返程日期",
+        },
+        {
+          prop: "fareType",
+          label: "运价类型",
+        },
+        {
+          prop: "status",
+          label: "状态",
+        },
+      ],
+      littleTab: [
+        {
+          prop: "carrier",
+          label: "航司",
+        },
+        {
+          prop: "arrTime",
+          label: "到达日期",
+        },
+        {
+          prop: "depTime",
+          label: "出发日期",
+        },
+        {
+          prop: "arrAirport",
           label: "到达机场",
-        },
-        {
-          prop: "searchFlightNumber",
-          label: "航班号",
         },
       ],
     };
@@ -194,7 +393,19 @@ export default {
         "/privateFare/searchWithEntity",
         this.searchCondition
       );
+      // alert(rep.data.list.formSegmentList[0].depTime);
       this.dataList = rep.data.list;
+      // if (this.dataList.fareType == 0) {
+      //   this.fromSegment.publicCabins =
+      //     rep.data.list[0].fromSegmentList[0].publicCabins;
+      // }
+      // alert(res.data.list.fareType);
+      // alert(rep.data.list[0].fromSegmentList[0].publicCabins);
+
+      // alert(this.dataList);
+      // this.fromSegmentList = rep.data.list.fromSegmentList;
+      // this.publicCabins = rep.data.list.fromSegmentList.publicCabins;
+      // this.privateCabins = rep.data.list.fromSegmentList.privateCabins;
     },
     itemFix(e) {
       let id = e.target.dataset.id;
@@ -202,8 +413,13 @@ export default {
     },
     openEdit(id) {
       this.$router.push({
-        path: `/forms/tankuang/hangbandata_new`,
+        path: `/forms/tankuang/hangbandata_table_edit`,
         query: { id },
+      });
+    },
+    selectAllClick() {
+      this.dataList.forEach((d) => {
+        d["checked"] = this.selectAll === "false";
       });
     },
   },

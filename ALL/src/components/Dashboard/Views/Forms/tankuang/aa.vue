@@ -326,7 +326,7 @@
           </div>
           <div
             v-for="(item, index) in privarcCabins"
-            v-if="index >= 1 && tripType == 1"
+            v-if="index >= 1 "
             :key="index"
             class="row"
           >

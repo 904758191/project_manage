@@ -72,6 +72,10 @@ export default [
       path:'/forms/otajiekou'
     },
     {
+      name:'航司配置',
+      path:'/forms/hangsipeizhi'
+    },
+    {
       name:'平台配置',
       path:''
     },
